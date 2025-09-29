@@ -9,6 +9,6 @@ const parent = document.getElementById("script_vacs_25_09_2025").parentElement;
 ConfigBuild.build(config, parent);
 PrettyStyles.style(config, styles);
 
-const thing = await DataExtractor.getRawJSON();
+const thing = await DataExtractor.init();
 
-console.log(thing);
+console.log("app.js raw:", thing);
