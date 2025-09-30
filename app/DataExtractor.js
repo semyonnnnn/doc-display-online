@@ -169,32 +169,25 @@ export const DataExtractor = {
       by_deps.push(department);
     });
 
+    by_deps.forEach((dep) => {
+      const new_vacs = [];
+      dep["vacs"].forEach((row) => {
+        let title = "";
+        row.forEach((item) => {
+          if (item[0].toLowerCase() === "должность") {
+            title = item[1];
+          }
+        });
+        const obj = {
+          title: title,
+        };
+        new_vacs.push(obj);
+      });
+      dep["vacs"] = new_vacs;
+    });
+
     console.log(by_deps);
 
     return proposal;
   },
 };
-
-function groupBetweenRepeats(aoa) {
-  const groups = [];
-
-  let currentGroup = [];
-
-  const seen = new Set();
-
-  for (const row of aoa) {
-    const first = row[0];
-    if (seen.has(first)) {
-      currentGroup.push(row);
-      groups.push(currentGroup);
-      currentGroup = [];
-      seen.clear();
-    } else {
-      currentGroup.push(row);
-      seen.add(first);
-    }
-  }
-
-  if (currentGroup.length) groups.push(currentGroup);
-  return groups;
-}
