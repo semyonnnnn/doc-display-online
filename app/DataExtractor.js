@@ -55,16 +55,16 @@ export const DataExtractor = {
       proposal_arr.push(row);
     }
 
-    const proposal = { content: [] };
+    const proposal = { children: [] };
     proposal_arr.forEach((row, i) => {
       if (row[0].toLowerCase() === this.prop_title) {
-        proposal["title"] = this.prop_title;
+        proposal["textContent"] = this.prop_title;
       } else {
-        proposal["content"][i] = row[0];
+        proposal["children"][i] = row[0];
       }
     });
 
-    proposal["content"] = [...proposal["content"]].filter((item) => item);
+    proposal["children"] = [...proposal["children"]].filter((item) => item);
 
     const no_proposal_raw = raw_data.slice(
       proposal_last_index,
@@ -89,19 +89,24 @@ export const DataExtractor = {
       by_deps_arr.push(currentSection);
     }
 
-    const by_deps = [];
+    const by_deps = {
+      textContent: "все вакансии",
+      html: "div",
+      id: "all_vacs_2025",
+      className: "all_vacs",
+      children: [],
+    };
 
     by_deps_arr.forEach((dep_arr) => {
-      const department = { vacs: [] };
-      department["dep"] = dep_arr[0][1];
+      const department = { children: [] };
+      department["textContent"] = dep_arr[0][1];
 
-      // const groups = [];
       let currentGroup = [];
 
       dep_arr.slice(1, dep_arr.length).forEach((row) => {
         if (row[0].toLowerCase() === "должность") {
           if (currentGroup.length > 0) {
-            department["vacs"].push(currentGroup);
+            department["children"].push(currentGroup);
             currentGroup = [];
           }
           currentGroup.push(row);
@@ -111,22 +116,22 @@ export const DataExtractor = {
       });
 
       if (currentGroup.length > 0) {
-        department["vacs"].push(currentGroup);
+        department["children"].push(currentGroup);
       }
-      by_deps.push(department);
+      by_deps["children"].push(department);
     });
 
-    by_deps.forEach((dep) => {
+    by_deps["children"].forEach((dep) => {
       const new_vacs = [];
-      dep["vacs"].forEach((row) => {
-        let title = "";
+      dep["children"].forEach((row) => {
+        let textContent = "";
         let req = [];
         let res = [];
         let contacts = [];
 
         row.forEach((item) => {
           if (item[0].toLowerCase() === "должность") {
-            title = item[1];
+            textContent = item[1];
           } else {
             req.push(item[0]);
             res.push(item[1]);
@@ -134,24 +139,32 @@ export const DataExtractor = {
           }
         });
 
-        [req, res, contacts] = [req, res, contacts].map((arr) => {
-          return arr.filter((item) => item !== "");
-        });
-
+        [req, res, contacts] = [req, res, contacts]
+          .map((arr) => {
+            return arr.filter((item) => item !== "");
+          })
+          .map((item) => {
+            return {
+              textContent: item[0],
+              children: item.slice(1, item.length),
+            };
+          });
         const obj = {
-          title: title,
-          content: {
-            req: req,
-            res: res,
-            contacts: contacts,
-          },
+          textContent: textContent,
+          children: [req, res, contacts],
         };
         new_vacs.push(obj);
       });
-      dep["vacs"] = new_vacs;
+      dep["children"] = new_vacs;
     });
 
-    // console.log("FINAL:", by_deps);
+    console.log("PROPOSAL", proposal);
+
+    for (const [key, value] of Object.entries(by_deps["children"])) {
+      const index = Number(key) + 1;
+      value["id"] = "dep_" + index;
+      console.log(value);
+    }
 
     return by_deps;
   },

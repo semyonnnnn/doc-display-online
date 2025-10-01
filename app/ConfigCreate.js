@@ -1,12 +1,20 @@
 export const ConfigCreate = {
   config: {},
   create(data) {
-    return this.recursion(data);
+    console.log(data);
+    this.recursion(data, this.config);
+    return this.config;
   },
-  //add parent
-  recursion(data) {
-    for (const [key, index] of data) {
-      //   this.config[key] = data[key];
+  recursion(data, parent) {
+    for (const item of data) {
+      if (item.hasOwnProperty("children")) {
+        console.log("has children", item["children"]);
+        parent["title"] = item["title"];
+        parent["children"] = item["children"];
+
+        // recursion;
+      }
     }
+    return parent;
   },
 };
