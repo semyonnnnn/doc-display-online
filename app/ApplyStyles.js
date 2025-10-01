@@ -1,4 +1,4 @@
-export const PrettyStyles = {
+export const ApplyStyles = {
   style(config, styles) {
     for (const [key, item] of Object.entries(config)) {
       if (item.className) {

@@ -8,7 +8,7 @@ export const DataExtractor = {
     this.rawJSON = await this.getRawJSON();
     const res = this.grouped_arrays(this.rawJSON);
 
-    return this.rawJSON;
+    return res;
   },
   is_dev:
     window.location.hostname === "localhost" ||
@@ -89,60 +89,7 @@ export const DataExtractor = {
       by_deps_arr.push(currentSection);
     }
 
-    /*
-
-      [
-        {
-          dep, [            
-                vac, {
-                  req: [],
-                  res: [],
-                  con: []
-                },
-                vac, {
-                  req: [],
-                  res: [],
-                  con: []
-                },
-                vac, {
-                  req: [],
-                  res: [],
-                  con: []
-                },
-              ]           
-         },
-         {
-          dep, [            
-                vac, {
-                  req: [],
-                  res: [],
-                  con: []
-                },
-              ]           
-         },
-         {
-          dep, [            
-                {
-                  title: vac, 
-                  content: {
-                    req: [],
-                    res: [],
-                    con: []
-                  },
-                }
-                vac, {
-                  req: [],
-                  res: [],
-                  con: []
-                },
-              ]           
-         },        
-      ]
-
-    */
-
     const by_deps = [];
-    console.log("by_deps_arr", by_deps_arr);
 
     by_deps_arr.forEach((dep_arr) => {
       const department = { vacs: [] };
@@ -173,21 +120,39 @@ export const DataExtractor = {
       const new_vacs = [];
       dep["vacs"].forEach((row) => {
         let title = "";
+        let req = [];
+        let res = [];
+        let contacts = [];
+
         row.forEach((item) => {
           if (item[0].toLowerCase() === "должность") {
             title = item[1];
+          } else {
+            req.push(item[0]);
+            res.push(item[1]);
+            contacts.push(item[2]);
           }
         });
+
+        [req, res, contacts] = [req, res, contacts].map((arr) => {
+          return arr.filter((item) => item !== "");
+        });
+
         const obj = {
           title: title,
+          content: {
+            req: req,
+            res: res,
+            contacts: contacts,
+          },
         };
         new_vacs.push(obj);
       });
       dep["vacs"] = new_vacs;
     });
 
-    console.log(by_deps);
+    // console.log("FINAL:", by_deps);
 
-    return proposal;
+    return by_deps;
   },
 };

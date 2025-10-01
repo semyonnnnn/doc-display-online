@@ -1,14 +1,15 @@
+import { DataExtractor } from "/app/DataExtractor.js";
+import { ConfigCreate } from "/app/ConfigCreate.js";
 import { ConfigBuild } from "/app/ConfigBuild.js";
-import { PrettyStyles } from "/app/PrettyStyles.js";
-import { config } from "/app/config.js";
+
 import * as styles from "/app/styles/styles.js";
-import { DataExtractor } from "./DataExtractor.js";
+import { ApplyStyles } from "/app/ApplyStyles.js";
 
 const parent = document.getElementById("script_vacs_25_09_2025").parentElement;
+const data = await DataExtractor.init();
+const config = ConfigCreate.create(data);
 
-ConfigBuild.build(config, parent);
-PrettyStyles.style(config, styles);
+// console.log(data);
 
-const thing = await DataExtractor.init();
-
-console.log("app.js raw:", thing);
+// ConfigBuild.build(config, parent);
+// ApplyStyles.style(config, styles);
