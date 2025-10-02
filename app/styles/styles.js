@@ -1,9 +1,6 @@
-export const child = {
-  backgroundColor: "red",
+export const vac_sections = {
+  display: "block",
 };
-export const parent = {
-  backgroundColor: "green",
-};
-export const grandchild = {
-  backgroundColor: "yellow",
+export const hidden = {
+  display: "block",
 };

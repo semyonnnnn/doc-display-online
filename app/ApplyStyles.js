@@ -1,13 +1,19 @@
 export const ApplyStyles = {
   style(config, styles) {
-    for (const [key, item] of Object.entries(config)) {
-      if (item.className) {
-        const dom_representation = document.getElementById(key);
-        Object.assign(dom_representation.style, styles[item.className]);
+    if (Array.isArray(config)) {
+      for (const item of config) {
+        this.style(item, styles);
       }
-      if (item.children) {
-        this.style(item.children, styles);
+      return;
+    }
+    if (config.className) {
+      const dom = document.getElementById(config.id);
+      if (dom && styles[config.className]) {
+        Object.assign(dom.style, styles[config.className]);
       }
+    }
+    if (config.children) {
+      this.style(config.children, styles);
     }
   },
 };
