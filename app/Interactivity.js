@@ -9,7 +9,14 @@ export const Interactivity = {
         vac_contents[index].id.replace("_modal", "")
       ) {
         button.addEventListener("click", () => {
-          vac_contents[index].classList.toggle("purple"); // ✅ toggles
+          vac_contents[index].classList.toggle("vac_modal_shown");
+          vac_contents.forEach((v, i) => {
+            if (i === index) {
+              v.classList.add("vac_modal_shown");
+            } else {
+              v.classList.remove("vac_modal_shown");
+            }
+          });
         });
       }
     });

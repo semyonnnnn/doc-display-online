@@ -16,8 +16,8 @@ async function loadXLSX() {
   });
 }
 
-// Wait until XLSX is loaded before anything else
-await loadXLSX();
+// PROD
+// await loadXLSX();
 
 // ---------- Imports after XLSX is ready ----------
 import { DataExtractor } from "/app/DataExtractor.js";
@@ -25,17 +25,17 @@ import { ConfigBuild } from "/app/ConfigBuild.js";
 import { Interactivity } from "/app/Interactivity.js";
 
 // webpack only: import CSS as text
-import cssText from "./styles/styles.css";
+// import cssText from "./styles/styles.css";
 
-// ---------- Your main code ----------
+// ---------- main code ----------
 const parent = document.getElementById("script_vacs_25_09_2025").parentElement;
 const config = await DataExtractor.init();
 
 ConfigBuild.build(config, parent);
 
-// Append CSS
-const styleTag = document.createElement("style");
-styleTag.textContent = cssText;
-document.head.appendChild(styleTag);
+// PROD
+// const styleTag = document.createElement("style");
+// styleTag.textContent = cssText;
+// document.head.appendChild(styleTag);
 
 Interactivity.interact(config);

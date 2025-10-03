@@ -1,5 +1,5 @@
-import { read } from "xlsx";
-// const { read } = XLSX;
+// import { read } from "xlsx";
+const { read } = XLSX;
 
 export const DataExtractor = {
   prop_title: "что мы предлагаем",
@@ -176,10 +176,27 @@ export const DataExtractor = {
           id: depObj.id + "_vac_" + (vacIndex + 1) + "_modal",
           children: [
             {
-              html: "h3",
-              textContent: vac.title,
-              className: "vac_title_modal",
-              id: depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle_modal",
+              html: "div",
+              className: "vac_title_modal_wrapper",
+              id:
+                depObj.id +
+                "_vac_" +
+                (vacIndex + 1) +
+                "_vacTitle_modal_wrapper",
+              children: [
+                {
+                  html: "h3",
+                  textContent: dep.title,
+                  className: "dep_title_modal",
+                  id: depObj.id + "_vac_" + (vacIndex + 1) + "_depTitle_modal",
+                },
+                {
+                  html: "h3",
+                  textContent: vac.title,
+                  className: "vac_title_modal",
+                  id: depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle_modal",
+                },
+              ],
             },
             {
               html: "div",
@@ -203,26 +220,26 @@ export const DataExtractor = {
                     className: "con",
                   },
                 ].map(({ key, title, className }) => ({
-                  html: "li",
+                  html: "p",
                   className,
                   children: [
                     { html: "h4", textContent: title },
-                    ...vac[key].map((line) => ({
-                      html: "p",
+                    ...vac[key].slice(1, vac[key].length).map((line) => ({
+                      html: "li",
                       className: className + "_line",
-                      textContent: line,
+                      textContent: this.normalizeListItem(line),
                     })),
                   ],
                 })),
                 {
-                  html: "li",
+                  html: "p",
                   className: "proposal",
                   children: [
                     { html: "h4", textContent: vac.proposal.title },
                     ...vac.proposal.lines.map((line) => ({
-                      html: "p",
+                      html: "li",
                       className: "proposal_line",
-                      textContent: line,
+                      textContent: this.normalizeListItem(line),
                     })),
                   ],
                 },
@@ -245,5 +262,21 @@ export const DataExtractor = {
         children: [by_deps, this.modal],
       },
     ];
+  },
+
+  normalizeListItem(text) {
+    const low_text = text
+      .toLowerCase()
+      .trim()
+      .replace(/^\u200B+/, "");
+    const with_big_first_letter =
+      low_text[0].toUpperCase() + low_text.slice(1, low_text.length);
+
+    const with_semicolumn =
+      with_big_first_letter[with_big_first_letter.length - 1] === ";"
+        ? with_semicolumn
+        : with_big_first_letter + ";";
+
+    return with_semicolumn;
   },
 };

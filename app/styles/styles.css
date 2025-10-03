@@ -17,10 +17,41 @@
 }
 */
 
+.modal_vacs_2025 {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+  border: 1px solid black;
+}
+
+.vac_modal {
+  display: none;
+}
+
 .vac_modal_shown {
   display: block;
 }
+.vac {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
 
-.purple {
-  background-color: purple;
+.vac_title {
+  border: none;
+  background-color: #1657b8;
+  color: white;
+  padding: 0.75rem 5.75rem;
+  font-size: 1.5rem;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  user-select: none;
+}
+.all_vacs_title {
+  font-size: 2.5rem;
+}
+.dep_title {
+  font-size: 1rem;
 }
