@@ -2,6 +2,12 @@ const { read } = XLSX;
 
 export const DataExtractor = {
   prop_title: "что мы предлагаем",
+  modal: {
+    id: "modal_vacs_2025",
+    className: "modal_vacs_2025",
+    html: "div",
+    children: [],
+  },
 
   async init() {
     this.rawJSON = await this.getRawJSON();
@@ -124,6 +130,18 @@ export const DataExtractor = {
         },
       ],
     };
+    const by_deps_modal = {
+      html: "div",
+      id: "vacs_desc_2025",
+      className: "vacs_desc",
+      children: [
+        {
+          textContent: "описание",
+          html: "h2",
+          className: "vac_title",
+        },
+      ],
+    };
 
     model.forEach((dep, depIndex) => {
       const depObj = {
@@ -137,6 +155,21 @@ export const DataExtractor = {
 
       dep.vacancies.forEach((vac, vacIndex) => {
         const vacContainer = {
+          html: "ul",
+          className: "vac",
+          id: depObj.id + "_vac_" + (vacIndex + 1),
+          children: [
+            {
+              html: "h3",
+              textContent: vac.title,
+              className: "vac_title",
+              id: depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle",
+            },
+          ],
+        };
+        depObj.children.push(vacContainer);
+
+        const vacContainer_modal = {
           html: "ul",
           className: "vac",
           id: depObj.id + "_vac_" + (vacIndex + 1),
@@ -197,12 +230,21 @@ export const DataExtractor = {
           ],
         };
 
-        depObj.children.push(vacContainer);
+        this.modal["children"].push(vacContainer_modal);
       });
 
       by_deps.children.push(depObj);
     });
 
-    return [by_deps];
+    console.log("THIS.MODAL", this.modal);
+    console.log("BY_DEPS", by_deps);
+    return [
+      {
+        id: "granddad_vacancies_2025",
+        html: "div",
+        className: "granddad_vacancies_2025",
+        children: [by_deps, this.modal],
+      },
+    ];
   },
 };
