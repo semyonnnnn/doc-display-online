@@ -40,6 +40,10 @@ export default {
   module: {
     rules: [
       {
+        test: /\.css$/i,
+        type: "asset/source", // import CSS as string
+      },
+      {
         test: /\.mjs$/,
         include: /node_modules/,
         type: "javascript/auto",

@@ -37,6 +37,10 @@ export default {
         include: /node_modules/,
         type: "javascript/auto",
       },
+      {
+        test: /\.css$/i,
+        type: "asset/source", // <- this makes Webpack import CSS as text
+      },
     ],
   },
   plugins: [

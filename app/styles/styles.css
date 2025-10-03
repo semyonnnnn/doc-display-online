@@ -1,4 +1,4 @@
-.vac-sections {
+.vac_sections {
   display: block;
 }
 
@@ -6,7 +6,7 @@
   display: block; /* Note: in JS you have "block", normally hidden would be display: none */
 }
 
-.granddad-vacancies-2025 {
+.granddad_vacancies_2025 {
   display: flex;
 }
 
@@ -17,7 +17,7 @@
 }
 */
 
-.vac-modal-shown {
+.vac_modal_shown {
   display: block;
 }
 

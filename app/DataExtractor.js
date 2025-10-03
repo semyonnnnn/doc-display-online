@@ -160,7 +160,7 @@ export const DataExtractor = {
           id: depObj.id + "_vac_" + (vacIndex + 1),
           children: [
             {
-              html: "h3",
+              html: "button",
               textContent: vac.title,
               className: "vac_title",
               id: depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle",
