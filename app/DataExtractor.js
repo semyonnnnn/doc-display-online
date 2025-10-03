@@ -171,19 +171,19 @@ export const DataExtractor = {
 
         const vacContainer_modal = {
           html: "ul",
-          className: "vac",
-          id: depObj.id + "_vac_" + (vacIndex + 1),
+          className: "vac_modal",
+          id: depObj.id + "_vac_" + (vacIndex + 1) + "_modal",
           children: [
             {
               html: "h3",
               textContent: vac.title,
-              className: "vac_title",
-              id: depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle",
+              className: "vac_title_modal",
+              id: depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle_modal",
             },
             {
               html: "div",
               className: "vac_sections",
-              id: depObj.id + "_vac_" + (vacIndex + 1) + "_sections",
+              id: depObj.id + "_vac_" + (vacIndex + 1) + "_sections_modal",
               children: [
                 ...[
                   {
@@ -236,8 +236,6 @@ export const DataExtractor = {
       by_deps.children.push(depObj);
     });
 
-    console.log("THIS.MODAL", this.modal);
-    console.log("BY_DEPS", by_deps);
     return [
       {
         id: "granddad_vacancies_2025",

@@ -1,0 +1,26 @@
+.vac-sections {
+  display: block;
+}
+
+.hidden {
+  display: block; /* Note: in JS you have "block", normally hidden would be display: none */
+}
+
+.granddad-vacancies-2025 {
+  display: flex;
+}
+
+/* Uncomment if you want to use this modal style */
+/*
+.vac-modal {
+  display: none;
+}
+*/
+
+.vac-modal-shown {
+  display: block;
+}
+
+.purple {
+  background-color: purple;
+}

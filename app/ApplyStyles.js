@@ -7,10 +7,17 @@ export const ApplyStyles = {
       return;
     }
     if (config.className) {
-      const dom = document.getElementById(config.id);
-      if (dom && styles[config.className]) {
-        Object.assign(dom.style, styles[config.className]);
-      }
+      const elements = document.querySelectorAll(
+        `#${config.id}, .${config.className}`
+      );
+      elements.forEach((dom) => {
+        const classes = config.className.split(/\s+/);
+        classes.forEach((cls) => {
+          if (styles[cls]) {
+            Object.assign(dom.style, styles[cls]);
+          }
+        });
+      });
     }
     if (config.children) {
       this.style(config.children, styles);
