@@ -1,0 +1,154 @@
+.vac_sections {
+  display: block;
+}
+
+.hidden {
+  display: block; /* Note: in JS you have "block", normally hidden would be display: none */
+}
+
+.granddad_vacancies_2025 {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Uncomment if you want to use this modal style */
+/*
+.vac-modal {
+  display: none;
+}
+*/
+
+.modal_vacs_2025 {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+  border: 1px solid black;
+  height: fit-content;
+  padding: 2rem 1rem;
+  min-width: 40rem;
+}
+
+.vac_modal {
+  display: none;
+}
+
+.vac_modal_shown {
+  display: block;
+}
+.vac {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.vac_title {
+  border: none;
+  background-color: #1657b8;
+  color: white;
+  padding: 0.1rem 0.2rem;
+  font-size: 1.2rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+  padding-left: 2rem;
+  /* display: none; */
+}
+.all_vacs_title {
+  font-size: 2.5rem;
+}
+.dep_title {
+  font-size: 1rem;
+}
+.aunt_vacancies_2025 {
+  height: 20rem;
+  width: auto;
+}
+
+.grandmom_vacancies_2025 {
+  display: flex;
+  gap: 2rem;
+}
+
+.vac_title_modal_wrapper {
+  margin-top: 2rem;
+}
+.great_granddad_vacancies_2025 {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.proposal_block {
+  /* border-bottom: 1px solid black;
+  border-left: 1px solid black; */
+  padding: 1rem 2rem;
+  box-shadow: 2px 2px 5px black;
+  display: flex;
+  font-size: 1.1rem;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.all_vacs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dep_title_wrapper {
+  border: 1px solid black;
+  padding: 0.3rem 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  min-width: fit-content;
+  max-width: 100%;
+}
+.dep_arrow {
+  width: 0px;
+  border-bottom: 0 solid transparent;
+  border-left: 0.4rem solid transparent;
+  border-right: 0.4rem solid transparent;
+  border-top: 0.7rem solid black;
+  transition: transform 0.3s ease;
+  transform-origin: 50% 50%;
+}
+.dep_arrow_rotated {
+  transform: rotate(180deg);
+}
+.vacs_wrapper {
+  margin-top: 1rem;
+  padding-left: 0 !important;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.hidden {
+  display: none;
+}
+
+@media (max-width: 1400px) {
+  .aunt_vacancies_2025 {
+    width: 100%;
+    height: auto;
+  }
+  .grandmom_vacancies_2025 {
+    flex-wrap: wrap;
+  }
+  .granddad_vacancies_2025 {
+    flex-wrap: wrap;
+  }
+  .all_vacs {
+    width: 100% !important;
+  }
+  .dep_title {
+    font-size: 0.7rem !important;
+  }
+}
