@@ -281,7 +281,7 @@ export const DataExtractor = {
                 id: "aunt_vacancies_2025",
                 html: "img",
                 className: "aunt_vacancies_2025",
-                // src: "/media/banner-vacs.png",
+                // src: "/media/vacs.png",
                 src: "https://66.rosstat.gov.ru/storage/mediabank/banner-vacs.png",
               },
             ],
