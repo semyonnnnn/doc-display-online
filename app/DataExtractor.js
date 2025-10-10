@@ -1,9 +1,10 @@
-import { read } from "xlsx";
-// const { read } = XLSX;
+// import { read } from "xlsx";
+const { read } = XLSX;
 
 export const DataExtractor = {
   prop_title: "что мы предлагаем",
   proposal: {},
+  including: ["в г.Екатеринбург"],
   modal: {
     id: "modal_vacs_2025",
     className: "modal_vacs_2025 hidden",
@@ -81,6 +82,15 @@ export const DataExtractor = {
     let currentSection = [];
     for (const row of departments_raw) {
       if (row[0].toLowerCase() === "отдел") {
+        const clean = row[2]
+          .trim()
+          .replace(/\s+/g, "")
+          .replace(/^\u200B+/, "")
+          .normalize();
+
+        if (!this.including.includes(clean) && clean !== "") {
+          this.including.push(clean);
+        }
         if (currentSection.length) departments.push(currentSection);
         currentSection = [row];
       } else {
@@ -89,45 +99,49 @@ export const DataExtractor = {
     }
     if (currentSection.length) departments.push(currentSection);
 
-    return departments.map((depRows) => {
-      const depTitle = depRows[0][1];
-      const vacancyRows = depRows.slice(1);
-      const groupedVacancies = [];
-      let currentVac = [];
-      for (const row of vacancyRows) {
-        if (row[0].toLowerCase() === "должность") {
-          if (currentVac.length) groupedVacancies.push(currentVac);
-          currentVac = [row];
-        } else {
-          currentVac.push(row);
-        }
-      }
-      if (currentVac.length) groupedVacancies.push(currentVac);
+    return departments
+      .map((depRows) => {
+        const depTitle = depRows[0][1];
+        const depIncluding = depRows[0][2];
 
-      const vacancies = groupedVacancies.map((vRows) => {
-        let title = "";
-        const req = [];
-        const res = [];
-        const contacts = [];
-        vRows.forEach((r) => {
-          if (r[0].toLowerCase() === "должность") {
-            title = r[1];
+        const vacancyRows = depRows.slice(1);
+        const groupedVacancies = [];
+        let currentVac = [];
+        for (const row of vacancyRows) {
+          if (row[0].toLowerCase() === "должность") {
+            if (currentVac.length) groupedVacancies.push(currentVac);
+            currentVac = [row];
           } else {
-            req.push(r[0]);
-            res.push(r[1]);
-            contacts.push(r[2]);
+            currentVac.push(row);
           }
-        });
-        return {
-          title,
-          requirements: req.filter(Boolean),
-          responsibilities: res.filter(Boolean),
-          contacts: contacts.filter(Boolean),
-        };
-      });
+        }
+        if (currentVac.length) groupedVacancies.push(currentVac);
 
-      return { title: depTitle, vacancies };
-    });
+        const vacancies = groupedVacancies.map((vRows) => {
+          let title = "";
+          const req = [];
+          const res = [];
+          const contacts = [];
+          vRows.forEach((r) => {
+            if (r[0].toLowerCase() === "должность") {
+              title = r[1];
+            } else {
+              req.push(r[0]);
+              res.push(r[1]);
+              contacts.push(r[2]);
+            }
+          });
+          return {
+            title,
+            requirements: req.filter(Boolean),
+            responsibilities: res.filter(Boolean),
+            contacts: contacts.filter(Boolean),
+          };
+        });
+
+        return { title: depTitle, meta: depIncluding, vacancies };
+      })
+      .sort((a, b) => a.meta.localeCompare(b.meta));
   },
 
   decorateModel(model) {
@@ -137,133 +151,153 @@ export const DataExtractor = {
       className: "all_vacs",
       children: [],
     };
-    const by_deps_modal = {
+
+    const including_wrapper = {
+      id: "including_wrapper_2025",
+      className: "including_wrapper_2025",
       html: "div",
-      id: "vacs_desc_2025",
-      className: "vacs_desc",
-      children: [
-        {
-          textContent: "описание",
-          html: "h2",
-          className: "vac_title",
-        },
-      ],
+      children: [],
     };
 
-    model.forEach((dep, depIndex) => {
-      const depObj = {
-        html: "div",
-        className: "dep",
-        id: "dep_" + (depIndex + 1),
-        children: [
-          {
-            html: "div",
-            className: "dep_title_wrapper",
-            id: "dep_" + (depIndex + 1) + "_wrapper",
-            children: [
-              { html: "h2", textContent: dep.title, className: "dep_title" },
-              {
-                html: "div",
-                className: "dep_arrow",
-                id: "dep_" + (depIndex + 1) + "_arrow",
-              },
-            ],
-          },
-          {
-            html: "div",
-            id: "dep_" + (depIndex + 1) + "_content",
-            className: "vacs_wrapper hidden",
-            children: [],
-          },
-        ],
-      };
+    // 👇 Group by meta
+    // 👇 Group by meta (with fallback)
+    const groupedByMeta = model.reduce((acc, dep) => {
+      const meta =
+        dep.meta && dep.meta.trim() !== "" ? dep.meta : "в г.Екатеринбург"; // fallback
 
-      dep.vacancies.forEach((vac, vacIndex) => {
-        const vacContainer = {
-          html: "div",
-          className: "vac",
-          id: depObj.id + "_vac_" + (vacIndex + 1),
-          children: [
-            {
-              html: "button",
-              textContent: vac.title,
-              className: "vac_title",
-              id: depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle",
-            },
-          ],
-        };
-        depObj.children[1].children.push(vacContainer);
+      if (!acc[meta]) acc[meta] = [];
+      acc[meta].push(dep);
+      return acc;
+    }, {});
 
-        const vacContainer_modal = {
-          html: "ul",
-          className: "vac_modal",
-          id: depObj.id + "_vac_" + (vacIndex + 1) + "_modal",
-          children: [
-            {
-              html: "div",
-              className: "vac_title_modal_wrapper",
-              id:
-                depObj.id +
-                "_vac_" +
-                (vacIndex + 1) +
-                "_vacTitle_modal_wrapper",
-              children: [
-                {
-                  html: "h3",
-                  textContent: dep.title,
-                  className: "dep_title_modal",
-                  id: depObj.id + "_vac_" + (vacIndex + 1) + "_depTitle_modal",
-                },
-                {
-                  html: "h3",
-                  textContent: vac.title,
-                  className: "vac_title_modal",
-                  id: depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle_modal",
-                },
-              ],
-            },
-            {
-              html: "div",
-              className: "vac_sections",
-              id: depObj.id + "_vac_" + (vacIndex + 1) + "_sections_modal",
-              children: [
-                ...[
-                  {
-                    key: "requirements",
-                    title: "требования",
-                    className: "req",
-                  },
-                  {
-                    key: "responsibilities",
-                    title: "обязанности",
-                    className: "res",
-                  },
-                  {
-                    key: "contacts",
-                    title: "контактная информация",
-                    className: "con",
-                  },
-                ].map(({ key, title, className }) => ({
-                  html: "p",
-                  className,
-                  children: [
-                    { html: "h4", textContent: title },
-                    ...vac[key].slice(1, vac[key].length).map((line) => ({
-                      html: "li",
-                      className: className + "_line",
-                      textContent: this.normalizeListItem(line),
-                    })),
-                  ],
-                })),
-              ],
-            },
-          ],
-        };
-
-        this.modal["children"].push(vacContainer_modal);
+    Object.entries(groupedByMeta).forEach(([meta, deps], metaIndex) => {
+      // Add <p> for meta
+      by_deps.children.push({
+        html: "p",
+        className: "dep_meta",
+        textContent: meta,
       });
 
-      by_deps.children.push(depObj);
+      // Add all departments for this meta
+      deps.forEach((dep, depIndex) => {
+        const depObj = {
+          html: "div",
+          className: "dep",
+          id: "dep_" + (metaIndex + 1) + "_" + (depIndex + 1),
+          children: [
+            {
+              html: "div",
+              className: "dep_title_wrapper",
+              id: "dep_" + (metaIndex + 1) + "_" + (depIndex + 1) + "_wrapper",
+              children: [
+                { html: "h2", textContent: dep.title, className: "dep_title" },
+                {
+                  html: "div",
+                  className: "dep_arrow",
+                  id:
+                    "dep_" + (metaIndex + 1) + "_" + (depIndex + 1) + "_arrow",
+                },
+              ],
+            },
+            {
+              html: "div",
+              id: "dep_" + (metaIndex + 1) + "_" + (depIndex + 1) + "_content",
+              className: "vacs_wrapper hidden",
+              children: [],
+            },
+          ],
+        };
+
+        dep.vacancies.forEach((vac, vacIndex) => {
+          const vacContainer = {
+            html: "div",
+            className: "vac",
+            id: depObj.id + "_vac_" + (vacIndex + 1),
+            children: [
+              {
+                html: "button",
+                textContent: vac.title,
+                className: "vac_title",
+                id: depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle",
+              },
+            ],
+          };
+          depObj.children[1].children.push(vacContainer);
+
+          // modal content stays same as before
+          const vacContainer_modal = {
+            html: "ul",
+            className: "vac_modal",
+            id: depObj.id + "_vac_" + (vacIndex + 1) + "_modal",
+            children: [
+              {
+                html: "div",
+                className: "vac_title_modal_wrapper",
+                id:
+                  depObj.id +
+                  "_vac_" +
+                  (vacIndex + 1) +
+                  "_vacTitle_modal_wrapper",
+                children: [
+                  {
+                    html: "h3",
+                    textContent: dep.title,
+                    className: "dep_title_modal",
+                    id:
+                      depObj.id + "_vac_" + (vacIndex + 1) + "_depTitle_modal",
+                  },
+                  {
+                    html: "h3",
+                    textContent: vac.title,
+                    className: "vac_title_modal",
+                    id:
+                      depObj.id + "_vac_" + (vacIndex + 1) + "_vacTitle_modal",
+                  },
+                ],
+              },
+              {
+                html: "div",
+                className: "vac_sections",
+                id: depObj.id + "_vac_" + (vacIndex + 1) + "_sections_modal",
+                children: [
+                  ...[
+                    {
+                      key: "requirements",
+                      title: "требования",
+                      className: "req",
+                    },
+                    {
+                      key: "responsibilities",
+                      title: "обязанности",
+                      className: "res",
+                    },
+                    {
+                      key: "contacts",
+                      title: "контактная информация",
+                      className: "con",
+                    },
+                  ].map(({ key, title, className }) => ({
+                    html: "p",
+                    className,
+                    children: [
+                      { html: "h4", textContent: title },
+                      ...vac[key].slice(1).map((line) => ({
+                        html: "li",
+                        className: className + "_line",
+                        textContent: this.normalizeListItem(line),
+                      })),
+                    ],
+                  })),
+                ],
+              },
+            ],
+          };
+
+          this.modal.children.push(vacContainer_modal);
+        });
+
+        by_deps.children.push(depObj);
+      });
     });
 
     return [
@@ -281,7 +315,6 @@ export const DataExtractor = {
                 id: "aunt_vacancies_2025",
                 html: "img",
                 className: "aunt_vacancies_2025",
-                // src: "/media/vacs.png",
                 src: "https://66.rosstat.gov.ru/storage/mediabank/banner-vacs.png",
               },
             ],

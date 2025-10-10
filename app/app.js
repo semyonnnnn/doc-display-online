@@ -16,15 +16,15 @@ async function loadXLSX() {
   });
 }
 
-// // PROD START
-await loadXLSX();
+// // // PROD START
+// await loadXLSX();
 
-import cssText from "./styles/styles.css";
+// import cssText from "./styles/styles.css";
 
-const styleTag = document.createElement("style");
-styleTag.textContent = cssText;
-document.head.appendChild(styleTag);
-// //PROD END
+// const styleTag = document.createElement("style");
+// styleTag.textContent = cssText;
+// document.head.appendChild(styleTag);
+// // //PROD END
 
 // ---------- Imports after XLSX is ready ----------
 import { DataExtractor } from "/app/DataExtractor.js";
