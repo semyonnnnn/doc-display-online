@@ -57,24 +57,24 @@ export const DataExtractor = {
       proposal_arr.push(row);
     }
 
-    this.proposal = {
-      html: "div",
-      className: "proposal_block",
-      children: [
-        {
-          html: "h2",
-          textContent: this.prop_title,
-          className: "proposal_title",
-        },
-        ...proposal_arr
-          .filter((row) => row[0].toLowerCase() !== this.prop_title)
-          .map((row) => ({
-            html: "li",
-            textContent: row[0],
-            className: "proposal_line",
-          })),
-      ],
-    };
+    // this.proposal = {
+    //   html: "div",
+    //   className: "proposal_block",
+    //   children: [
+    //     {
+    //       html: "h2",
+    //       textContent: this.prop_title,
+    //       className: "proposal_title",
+    //     },
+    //     ...proposal_arr
+    //       .filter((row) => row[0].toLowerCase() !== this.prop_title)
+    //       .map((row) => ({
+    //         html: "li",
+    //         textContent: row[0],
+    //         className: "proposal_line",
+    //       })),
+    //   ],
+    // };
 
     const departments_raw = raw_data.slice(proposal_last_index);
     const departments = [];
@@ -281,9 +281,9 @@ export const DataExtractor = {
                 id: "aunt_vacancies_2025",
                 html: "img",
                 className: "aunt_vacancies_2025",
-                src: "https://66.rosstat.gov.ru/storage/mediabank/banner-vacs.png",
+                src: "/media/banner-vacs.png",
+                // src: "https://66.rosstat.gov.ru/storage/mediabank/banner-vacs.png",
               },
-              this.proposal,
             ],
           },
           {
