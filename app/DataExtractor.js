@@ -1,5 +1,5 @@
-// import { read } from "xlsx";
-const { read } = XLSX;
+import { read } from "xlsx";
+// const { read } = XLSX;
 
 export const DataExtractor = {
   prop_title: "что мы предлагаем",
