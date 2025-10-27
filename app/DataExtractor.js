@@ -26,7 +26,7 @@ export const DataExtractor = {
   async getRawJSON() {
     const url = this.is_dev
       ? "/media/vacs.xlsx"
-      : "https://66.rosstat.gov.ru/storage/mediabank/vacs.xlsx";
+      : "https://66.rosstat.gov.ru/storage/mediabank/vacs(12).xlsx";
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
     const workbook = read(arrayBuffer, { type: "binary", codepage: 65001 });
