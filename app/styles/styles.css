@@ -9,7 +9,7 @@ td {
   padding: 0 !important;
 }
 table {
-  table-layout: fixed;
+  table-layout: auto;
 }
 .table {
   display: flex;

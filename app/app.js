@@ -26,6 +26,9 @@ Interactivity.init();
 document
   .querySelector("sidebar")
   .parentElement.parentElement.parentElement.classList.add("hidden");
-const main = document.querySelectorAll(".col-lg-8.order-1.order-lg-1");
-main.classList.remove("col-lg-8");
-main.classList.add("col-lg-12");
+
+setTimeout(() => {
+  const main = document.querySelectorAll(".col-lg-8.order-1.order-lg-1");
+  main.classList.remove("col-lg-8");
+  main.classList.add("col-lg-12");
+}, 0);
