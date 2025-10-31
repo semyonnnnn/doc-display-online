@@ -23,12 +23,11 @@ ApplyStyles.init(table);
 DataExtractor.init(table, data_window);
 Interactivity.init();
 
-document
-  .querySelector("sidebar")
-  .parentElement.parentElement.parentElement.classList.add("hidden");
-
 setTimeout(() => {
-  const main = document.querySelectorAll(".col-lg-8.order-1.order-lg-1");
+  document.querySelector(
+    ".col-lg-4.mt-2.mt-lg-0.order-2.order-lg-1"
+  ).style.display = "none";
+  const main = document.querySelectorAll(".col-lg-8.order-1.order-lg-1")[0];
   main.classList.remove("col-lg-8");
   main.classList.add("col-lg-12");
 }, 0);
