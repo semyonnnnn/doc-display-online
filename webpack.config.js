@@ -58,7 +58,7 @@ export default {
 
             if (isDev) {
               code = `<!-- Development mode using XLSX CDN -->
-<script src="https://cdn.sheetjs.com/xlsx-0.18.5/package/dist/xlsx.full.min.js"></script>
+<script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
 ${code}`;
             }
 
