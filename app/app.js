@@ -22,3 +22,10 @@ document.head.appendChild(styleTag);
 ApplyStyles.init(table);
 DataExtractor.init(table, data_window);
 Interactivity.init();
+
+document
+  .querySelector("sidebar")
+  .parentElement.parentElement.parentElement.classList.add("hidden");
+const main = document.querySelectorAll(".col-lg-8.order-1.order-lg-1");
+main.classList.remove("col-lg-8");
+main.classList.add("col-lg-12");
