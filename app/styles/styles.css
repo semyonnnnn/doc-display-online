@@ -63,3 +63,6 @@ td {
   justify-items: center;
   align-items: center;
 }
+.get_rotated {
+  transform: rotateZ(-180deg);
+}

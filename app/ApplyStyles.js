@@ -1,7 +1,5 @@
 export const ApplyStyles = {
-  init: () => {
-    const table = document.querySelector("table");
-
+  init: (table) => {
     table
       .querySelectorAll("td")
       .forEach((td) => (td.innerHTML = td.innerHTML.replace(/&nbsp;/g, "")));
