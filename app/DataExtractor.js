@@ -1,3 +1,5 @@
+import * as mammoth from "mammoth";
+
 export const DataExtractor = {
   init: (table) => {
     const links = table.querySelectorAll("a");
@@ -11,7 +13,12 @@ export const DataExtractor = {
           const arrayBuffer = await response.arrayBuffer();
 
           const result = await mammoth.convertToHtml({ arrayBuffer });
-          console.log(result.value);
+          //   console.log(result.value);
+
+          const example = document.createElement("div");
+          document.body.appendChild(example);
+          example.innerHTML = result.value;
+
           console.log("Messages:", result.messages);
         } catch (err) {
           console.error("ERR: ", err);

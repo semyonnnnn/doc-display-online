@@ -57,7 +57,7 @@ export default {
             let code = fs.readFileSync(bundlePath, "utf8");
 
             if (isDev) {
-              code = `<!-- Development mode using XLSX CDN -->
+              code = `<!-- Development mode using mammoth CDN -->
 <script src="https://unpkg.com/mammoth/mammoth.browser.min.js"></script>
 ${code}`;
             }
