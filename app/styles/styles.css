@@ -11,6 +11,10 @@ td {
   border: none !important;
   padding: 0 !important;
 }
+.table {
+  display: flex;
+  gap: 1rem;
+}
 .vac {
   background-color: #1657b8;
   color: white !important;
@@ -65,4 +69,20 @@ td {
 }
 .get_rotated {
   transform: rotateZ(-180deg);
+}
+.data_window {
+  border: 1px solid black;
+  width: 50vw;
+  height: auto;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+}
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: left;
+}
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
 }

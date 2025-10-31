@@ -1,7 +1,7 @@
 import * as mammoth from "mammoth";
 
 export const DataExtractor = {
-  init: (table) => {
+  init: (table, data_window) => {
     const links = table.querySelectorAll("a");
     links.forEach((link) => {
       link.addEventListener("click", async (e) => {
@@ -13,13 +13,17 @@ export const DataExtractor = {
           const arrayBuffer = await response.arrayBuffer();
 
           const result = await mammoth.convertToHtml({ arrayBuffer });
-          //   console.log(result.value);
 
-          const example = document.createElement("div");
-          document.body.appendChild(example);
-          example.innerHTML = result.value;
+          data_window.classList.remove("hidden");
+          data_window.innerHTML = result.value;
 
-          console.log("Messages:", result.messages);
+          for (const child of data_window.children) {
+            if (child.tagName.toLowerCase() !== "ul") {
+              child == data_window.children[0]
+                ? child.classList.add("title")
+                : child.classList.add("subtitle");
+            }
+          }
         } catch (err) {
           console.error("ERR: ", err);
         }

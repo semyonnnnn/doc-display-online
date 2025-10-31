@@ -1,5 +1,5 @@
 export const Interactivity = {
-  init() {
+  init(data_window) {
     const dep_triggers = document.querySelectorAll(".dep_trigger");
     const dep_menus = document.querySelectorAll(".dep_menu");
 

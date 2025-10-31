@@ -5,13 +5,18 @@ import { Interactivity } from "/app/Interactivity.js";
 // const parent = document.getElementById("script_vacs_25_09_2025").parentElement;
 
 const table = document.querySelector("table");
+table.classList.add("table");
 
-import cssText from "./styles/styles.css";
+const data_window = document.createElement("div");
+data_window.classList.add("data_window");
+data_window.classList.add("hidden");
+table.appendChild(data_window);
 
-const styleTag = document.createElement("style");
-styleTag.textContent = cssText;
-document.head.appendChild(styleTag);
+// import cssText from "./styles/styles.css";
+// const styleTag = document.createElement("style");
+// styleTag.textContent = cssText;
+// document.head.appendChild(styleTag);
 
 ApplyStyles.init(table);
-DataExtractor.init(table);
+DataExtractor.init(table, data_window);
 Interactivity.init();
