@@ -12,10 +12,10 @@ data_window.classList.add("data_window");
 data_window.classList.add("hidden");
 table.appendChild(data_window);
 
-// import cssText from "./styles/styles.css";
-// const styleTag = document.createElement("style");
-// styleTag.textContent = cssText;
-// document.head.appendChild(styleTag);
+import cssText from "./styles/styles.css";
+const styleTag = document.createElement("style");
+styleTag.textContent = cssText;
+document.head.appendChild(styleTag);
 
 ApplyStyles.init(table);
 DataExtractor.init(table, data_window);
