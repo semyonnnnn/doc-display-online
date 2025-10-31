@@ -6,6 +6,12 @@ import { Interactivity } from "/app/Interactivity.js";
 
 const table = document.querySelector("table");
 
+import cssText from "./styles/styles.css";
+
+const styleTag = document.createElement("style");
+styleTag.textContent = cssText;
+document.head.appendChild(styleTag);
+
 ApplyStyles.init(table);
 DataExtractor.init(table);
 Interactivity.init();
