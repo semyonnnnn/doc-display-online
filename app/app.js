@@ -5,7 +5,7 @@ import { Interactivity } from "/app/Interactivity.js";
 // const parent = document.getElementById("script_vacs_25_09_2025").parentElement;
 
 const table = document.querySelector("table");
-table.classList.add("table");
+table.classList.add("inline-table");
 
 const data_window = document.createElement("div");
 data_window.classList.add("data_window");

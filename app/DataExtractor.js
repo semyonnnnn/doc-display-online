@@ -6,6 +6,8 @@ export const DataExtractor = {
     links.forEach((link) => {
       link.addEventListener("click", async (e) => {
         e.preventDefault();
+        table.classList.remove("inline-table");
+        table.classList.add("flex");
         const url = e.currentTarget.href;
         try {
           const response = await fetch(url);

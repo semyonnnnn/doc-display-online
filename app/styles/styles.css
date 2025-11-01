@@ -11,9 +11,8 @@ td {
 table {
   table-layout: auto;
 }
-.table {
-  display: flex;
-  gap: 1rem;
+.inline-table {
+  display: inline-table;
 }
 .vac {
   background-color: #1657b8;
@@ -85,4 +84,8 @@ table {
 .subtitle {
   font-size: 1.2rem;
   font-weight: 600;
+}
+.flex {
+  display: flex;
+  gap: 1rem;
 }
