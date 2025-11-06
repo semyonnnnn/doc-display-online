@@ -1,4 +1,4 @@
-import * as mammoth from "mammoth";
+// import * as mammoth from "mammoth";
 
 export const DataExtractor = {
   init: (table, data_window) => {
