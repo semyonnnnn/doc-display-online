@@ -60,6 +60,7 @@ table {
   border-top: 0.7rem solid black;
   transition: transform 0.3s ease;
   transform-origin: 50% 50%;
+  margin: 0 !important;
 }
 .arrow_container {
   display: flex;

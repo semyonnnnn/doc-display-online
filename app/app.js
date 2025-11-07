@@ -18,8 +18,8 @@ content.appendChild(data_window);
 // //PROD ONLY
 
 ApplyStyles.init(outer_tables, content);
-DataExtractor.init(table, data_window);
 Interactivity.init();
+DataExtractor.init(outer_tables, data_window);
 
 setTimeout(() => {
   document.querySelector(
