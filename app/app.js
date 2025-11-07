@@ -8,7 +8,8 @@ const outer_tables = content.querySelectorAll(":scope > table");
 const data_window = document.createElement("div");
 data_window.classList.add("data_window");
 data_window.classList.add("hidden");
-content.appendChild(data_window);
+content.parentElement.appendChild(data_window);
+content.parentElement.classList.add("flex");
 
 //PROD ONLY
 import cssText from "./styles/styles.css";
