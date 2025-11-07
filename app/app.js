@@ -10,12 +10,12 @@ data_window.classList.add("data_window");
 data_window.classList.add("hidden");
 content.appendChild(data_window);
 
-// //PROD ONLY
-// import cssText from "./styles/styles.css";
-// const styleTag = document.createElement("style");
-// styleTag.textContent = cssText;
-// document.head.appendChild(styleTag);
-// //PROD ONLY
+//PROD ONLY
+import cssText from "./styles/styles.css";
+const styleTag = document.createElement("style");
+styleTag.textContent = cssText;
+document.head.appendChild(styleTag);
+//PROD ONLY
 
 ApplyStyles.init(outer_tables, content);
 Interactivity.init();
