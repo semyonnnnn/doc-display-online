@@ -30,6 +30,10 @@ setTimeout(() => {
 
   content.parentElement.appendChild(data_window);
   content.parentElement.classList.add("flex");
+  Object.assign(content.parentElement.style, {
+    display: "flex",
+    gap: "1rem",
+  });
 }, 0);
 
 // https://66.rosstat.gov.ru/folder/270448

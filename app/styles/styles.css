@@ -87,6 +87,6 @@ table {
   font-weight: 600;
 }
 .flex {
-  display: flex;
-  gap: 1rem;
+  display: flex !important;
+  gap: 1rem !important;
 }
