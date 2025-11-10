@@ -3,8 +3,8 @@ export const Interactivity = {
     const dep_triggers = document.querySelectorAll(".dep_trigger");
     const dep_menus = document.querySelectorAll(".dep_menu");
 
-    dep_triggers.forEach((dep_trigger, index) => {
-      dep_trigger.addEventListener("click", () => {
+    document.querySelectorAll(".vac").forEach((vac) => {
+      vac.addEventListener("click", () => {
         setTimeout(() => {
           content.parentElement.classList.add("flex");
           Object.assign(content.parentElement.style, {
@@ -12,7 +12,11 @@ export const Interactivity = {
             gap: "1rem",
           });
         });
+      });
+    });
 
+    dep_triggers.forEach((dep_trigger, index) => {
+      dep_trigger.addEventListener("click", () => {
         if (
           dep_trigger.id.replace("dep_trigger_") ===
           dep_menus[index].id.replace("dep_menu_")
