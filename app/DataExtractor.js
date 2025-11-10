@@ -1,13 +1,9 @@
 import * as mammoth from "mammoth";
 
 export const DataExtractor = {
-  init: (outer_tables, data_window) => {
-    // const links = Array.from(outer_tables)
-    //   .map((outer_table) => outer_table.querySelectorAll("a"))
-    //   .map((table) => Array.from(table))
-    //   .flat();
-
+  init: (data_window) => {
     const links = document.querySelectorAll(".vac");
+    console.log(links);
 
     links.forEach((link) => {
       link.addEventListener("click", async (e) => {

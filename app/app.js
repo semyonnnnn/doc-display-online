@@ -18,7 +18,7 @@ document.head.appendChild(styleTag);
 
 ApplyStyles.init(outer_tables, content);
 Interactivity.init(content);
-DataExtractor.init(outer_tables, data_window);
+DataExtractor.init(data_window);
 
 setTimeout(() => {
   document.querySelector(
