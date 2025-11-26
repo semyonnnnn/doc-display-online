@@ -3,7 +3,7 @@ import * as mammoth from "mammoth";
 export const DataExtractor = {
   init: (data_window) => {
     const links = document.querySelectorAll(".vac");
-    console.log(links);
+    // console.log(links);
 
     links.forEach((link) => {
       link.addEventListener("click", async (e) => {

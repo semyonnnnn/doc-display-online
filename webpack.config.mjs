@@ -48,6 +48,10 @@ export default {
         include: /node_modules/,
         type: "javascript/auto",
       },
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
+      },
     ],
   },
   plugins: [

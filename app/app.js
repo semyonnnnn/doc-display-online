@@ -2,6 +2,8 @@ import { ApplyStyles } from "/app/ApplyStyles.js";
 import { DataExtractor } from "/app/DataExtractor.js";
 import { Interactivity } from "/app/Interactivity.js";
 
+import template from "../template.html";
+
 const content = document.querySelectorAll(".content")[1];
 const outer_tables = content.querySelectorAll(":scope > table");
 
@@ -10,10 +12,14 @@ data_window.classList.add("data_window");
 data_window.classList.add("hidden");
 
 // PROD ONLY
-import cssText from "./styles/styles.css";
+import vacancies_styles from "./styles/vacancies.css";
+import interviewers_styles from "./styles/interviewers.css";
+
 const styleTag = document.createElement("style");
-styleTag.textContent = cssText;
+styleTag.textContent = vacancies_styles + interviewers_styles;
+
 document.head.appendChild(styleTag);
+
 //PROD ONLY
 
 ApplyStyles.init(outer_tables, content);
@@ -29,6 +35,14 @@ setTimeout(() => {
   main.classList.add("col-lg-12");
 
   content.parentElement.appendChild(data_window);
+
+  ///////////////////////////////////////////////
+  // const parent = document.currentScript.parentElement;
+
+  const interviewers_container = document.createElement("div");
+  interviewers_container.innerHTML = template;
+
+  content.parentElement.parentElement.appendChild(interviewers_container);
 }, 0);
 
 // https://66.rosstat.gov.ru/folder/270448
