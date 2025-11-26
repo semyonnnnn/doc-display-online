@@ -56,7 +56,7 @@
   margin-top: 1rem;
 }
 
-.col-12.mb-2 > .content .hidden {
+.hidden {
   display: none;
 }
 
@@ -81,7 +81,7 @@
   transform: rotateZ(-180deg);
 }
 
-.col-12.mb-2 > .content .data_window {
+.col-12.mb-2 > .content ~ .data_window {
   border: 1px solid black;
   width: 60vw;
   height: fit-content;
