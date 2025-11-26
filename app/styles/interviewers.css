@@ -1,14 +1,3 @@
-/* Базовые стили и сброс */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background-color: #f7f9fc;
-  color: #333;
-}
-
-/* Контейнер таблицы для адаптивности */
 .table-container {
   overflow-x: auto;
   max-width: 100%;
@@ -17,17 +6,13 @@ body {
   border-radius: 12px;
   background-color: #ffffff;
   padding: 15px;
-}
-
-/* Стиль таблицы */
+} /* Стиль таблицы */
 .table-container table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  min-width: 800px; /* Обеспечивает прокрутку на очень маленьких экранах */
-}
-
-/* Стили заголовков */
+  min-width: 800px;
+} /* Стили заголовков таблицы */
 .table-container th {
   background-color: #4a90e2;
   color: #ffffff;
@@ -40,43 +25,31 @@ body {
   top: 0;
   z-index: 10;
 }
-
 .table-container th:first-child {
   border-top-left-radius: 8px;
 }
-
 .table-container th:last-child {
   border-top-right-radius: 8px;
-}
-
-/* Стили ячеек данных */
+} /* Стили ячеек данных */
 .table-container td {
   padding: 12px 20px;
   border-bottom: 1px solid #f0f0f0;
   vertical-align: top;
   line-height: 1.5;
   font-size: 14px;
-}
-
-/* Стиль для четных строк */
+} /* Стиль для четных строк */
 .table-container tr:nth-child(even) {
   background-color: #f9f9f9;
-}
-
-/* Стиль при наведении */
+} /* Стиль при наведении */
 .table-container tr:hover {
   background-color: #e6f0ff;
   transition: background-color 0.2s ease;
-}
-
-/* Стили для примечаний */
+} /* Стили для примечаний */
 .table-container .note {
   font-size: 12px;
   color: #777;
   padding: 10px 0 0 20px;
-}
-
-/* Адаптивность для текста */
+} /* Адаптивность для текста */
 @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -88,9 +61,10 @@ body {
   .table-container td {
     padding: 10px 15px;
   }
+} /* ------------------------------------------------------------------- */ /* НОВЫЕ СТИЛИ ДЛЯ ВИЗУАЛИЗАЦИИ ВРЕМЕННОЙ ШКАЛЫ (36-КОЛОНОЧНАЯ СЕТКА) */ /* ------------------------------------------------------------------- */ /* Определяем ширину одной колонки (100% / 36) для точных расчетов */
+:root {
+  --col-width: 2.777777777777777%;
 }
-
-/* --- Стили для визуализации (timeline) остаются как есть --- */
 .timeline-container {
   max-width: 100%;
   margin: 40px auto 20px auto;
@@ -107,28 +81,61 @@ body {
   font-weight: 500;
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
-}
+} /* Новый контейнер для заголовков месяцев */
 .month-labels {
   display: flex;
   border-bottom: 2px solid #ddd;
-  margin-bottom: 15px;
+  margin-bottom: 0;
 }
-.month-labels div {
-  width: 8.33%; /* 100% / 12 months */
+.month-labels .month-name {
+  width: 8.3333%; /* 100% / 12 months */
   text-align: center;
-  font-size: 10px;
-  color: #777;
+  font-size: 11px;
+  color: #333;
   padding-bottom: 5px;
   font-weight: 600;
-}
-.timeline-chart {
+} /* Контейнер для сетки и полос */
+.timeline-grid {
   position: relative;
   height: 250px;
-}
+  border-left: 2px solid #ddd; /* Стартовая линия */
+  margin-bottom: 15px;
+} /* Вертикальные линии сетки (36 колонок - тонкие линии) */
+.timeline-grid::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%; /* Создаем вертикальные линии через каждые --col-width */
+  background: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(var(--col-width) - 1px),
+    #f0f0f0 calc(var(--col-width) - 1px),
+    #f0f0f0 var(--col-width)
+  );
+  background-size: calc(100% + 2px) 100%;
+  z-index: 0;
+} /* Более толстые линии для разделения месяцев (через каждые 1/12) */
+.timeline-grid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(100% / 12 - 1px),
+    #bbb calc(100% / 12 - 1px),
+    #bbb calc(100% / 12)
+  );
+  background-size: 100% 100%;
+  z-index: 1; /* Над тонкими линиями */
+} /* Общие стили для полос наблюдений */
 .survey-bar {
   position: absolute;
   height: 20px;
-  background-color: #6da7f8;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -142,15 +149,14 @@ body {
   color: #fff;
   font-weight: 500;
   opacity: 0.9;
-  z-index: 1; /* Для наложения */
+  z-index: 5;
 }
 .survey-bar:hover {
   opacity: 1;
   z-index: 20;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transform: scaleX(1.005) translateY(-1px);
-}
-/* Уровни для вертикального размещения */
+} /* Уровни для вертикального размещения */
 .level-1 {
   top: 0px;
 }
@@ -165,19 +171,12 @@ body {
 }
 .level-5 {
   top: 120px;
-}
-.level-6 {
-  top: 150px;
-}
+} /* .level-6 { top: 150px; } (Не используется) */
 .level-7 {
   top: 180px;
-  background-color: #cc0000;
-  color: #fff;
-}
-
-/* Цвета */
+} /* Цвета */
 .color-1 {
-  background-color: #6da7f8;
+  background-color: #7a55ff;
 } /* Доходы */
 .color-2 {
   background-color: #77d3aa;
@@ -191,55 +190,53 @@ body {
 .color-5 {
   background-color: #e83e8c;
 } /* ИТ */
-.color-6 {
-  background-color: #00bcd4;
-} /* Рабочая сила (пример) */
 .color-7 {
   background-color: #465a7d;
-} /* Сельхоз */
-
-/* Позиционирование (Jan=0%, Feb=8.33%, etc.) - Период опроса */
-.s1 {
-  left: 4%;
-  width: 12%;
+} /* Сельхоз */ /* ПОЗИЦИОНИРОВАНИЕ НА ОСНОВЕ 36-КОЛОНОЧНОЙ СЕТКИ */ /* ----------------------------------------------- */ /* 1. Доходы населения (16 янв – 5 фев = 21 день) */ /* (16/30)*3 = 1.6 колонки; (21/30)*3 = 2.1 колонки */
+.s1-new {
+  left: calc(1.5 * var(--col-width)); /* Примерно 16 января */
+  width: calc(2.1 * var(--col-width)); /* 21 день */
+} /* 2. Многодетные семьи (11 фев – 27 фев = 17 дней) */ /* (3 + 11/30*3) = 4.1 колонки; (17/30)*3 = 1.7 колонки */
+.s2-new {
+  left: calc((3 + 1.1) * var(--col-width)); /* Примерно 11 февраля */
+  width: calc(1.7 * var(--col-width)); /* 17 дней */
+} /* 3. Комплексное наблюдение (12 сен – 6 окт = 24 дня) */ /* (24 + 12/30*3) = 25.2 колонки; (24/30)*3 = 2.4 колонки */
+.s3-new {
+  left: calc((24 + 1.2) * var(--col-width)); /* Примерно 12 сентября */
+  width: calc(2.4 * var(--col-width)); /* 24 дня */
+} /* 4. Состояние здоровья (4 сен – 2 окт = 28 дней) */ /* (24 + 4/30*3) = 24.4 колонки; (28/30)*3 = 2.8 колонки */
+.s4-new {
+  left: calc((24 + 0.4) * var(--col-width)); /* Примерно 4 сентября */
+  width: calc(2.8 * var(--col-width)); /* 28 дней */
+} /* 5. ИТ и сети - Октябрь (12 – 18 окт = 7 дней) */ /* (27 + 12/30*3) = 28.2 колонки; (7/30)*3 = 0.7 колонки */
+.s5a-new {
+  left: calc((27 + 1.2) * var(--col-width)); /* Примерно 12 октября */
+  width: calc(0.7 * var(--col-width)); /* 7 дней */
+} /* 5. ИТ и сети - Ноябрь (16 – 22 ноя = 7 дней) */ /* (30 + 16/30*3) = 31.6 колонки; (7/30)*3 = 0.7 колонки */
+.s5b-new {
+  left: calc((30 + 1.6) * var(--col-width)); /* Примерно 16 ноября */
+  width: calc(0.7 * var(--col-width)); /* 7 дней */
+} /* 6. Сельхоз. деятельность (1-11 число = 11 дней) ~ 1 колонка */ /* 11/30*3 = 1.1 колонки */ /* Апрель (9 колонок) */
+.s6a-new {
+  left: calc(9 * var(--col-width)); /* 1 апреля */
+  width: calc(1.1 * var(--col-width)); /* 11 дней */
+} /* Июль (18 колонок) */
+.s6b-new {
+  left: calc(18 * var(--col-width)); /* 1 июля */
+  width: calc(1.1 * var(--col-width));
+} /* Октябрь (27 колонок) */
+.s6c-new {
+  left: calc(27 * var(--col-width)); /* 1 октября */
+  width: calc(1.1 * var(--col-width));
+} /* Ноябрь (30 колонок) */
+.s6d-new {
+  left: calc(30 * var(--col-width)); /* 1 ноября */
+  width: calc(1.1 * var(--col-width));
+} /* Декабрь (33 колонки) */
+.s6e-new {
+  left: calc(33 * var(--col-width)); /* 1 декабря */
+  width: calc(1.1 * var(--col-width));
 }
-.s2 {
-  left: 11%;
-  width: 6%;
-}
-.s3 {
-  left: 69%;
-  width: 10%;
-}
-.s4 {
-  left: 67%;
-  width: 10%;
-}
-.s5a {
-  left: 77%;
-  width: 3%;
-}
-.s5b {
-  left: 88%;
-  width: 3%;
-}
-.s6a {
-  left: 25%;
-  width: 3%;
-}
-.s6b {
-  left: 50%;
-  width: 3%;
-}
-.s6c {
-  left: 75%;
-  width: 3%;
-}
-.s6d {
-  left: 83.3%;
-  width: 3%;
-}
-.s6e {
-  left: 91.6%;
-  width: 3%;
+.months {
+  padding: 2rem !important;
 }

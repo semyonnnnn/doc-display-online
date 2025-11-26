@@ -11,16 +11,16 @@ const data_window = document.createElement("div");
 data_window.classList.add("data_window");
 data_window.classList.add("hidden");
 
-// PROD ONLY
-import vacancies_styles from "./styles/vacancies.css";
-import interviewers_styles from "./styles/interviewers.css";
+// // PROD ONLY
+// import vacancies_styles from "./styles/vacancies.css";
+// import interviewers_styles from "./styles/interviewers.css";
 
-const styleTag = document.createElement("style");
-styleTag.textContent = vacancies_styles + interviewers_styles;
+// const styleTag = document.createElement("style");
+// styleTag.textContent = vacancies_styles + interviewers_styles;
 
-document.head.appendChild(styleTag);
+// document.head.appendChild(styleTag);
 
-//PROD ONLY
+// //PROD ONLY
 
 ApplyStyles.init(outer_tables, content);
 Interactivity.init(content);
@@ -37,12 +37,13 @@ setTimeout(() => {
   content.parentElement.appendChild(data_window);
 
   ///////////////////////////////////////////////
-  // const parent = document.currentScript.parentElement;
 
-  const interviewers_container = document.createElement("div");
-  interviewers_container.innerHTML = template;
+  // //PROD ONLY
+  // const interviewers_container = document.createElement("div");
+  // interviewers_container.innerHTML = template;
 
-  content.parentElement.parentElement.appendChild(interviewers_container);
+  // content.parentElement.parentElement.appendChild(interviewers_container);
+  // //PROD ONLY
 }, 0);
 
 // https://66.rosstat.gov.ru/folder/270448
