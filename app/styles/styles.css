@@ -1,27 +1,32 @@
-strong {
+/* Scoped to your container: col-12.mb-2 > content */
+.col-12.mb-2 > .content strong {
   font-weight: 500 !important;
 }
-a {
+
+.col-12.mb-2 > .content a {
   text-decoration: none;
 }
-td {
+
+.col-12.mb-2 > .content td {
   border: none !important;
   padding: 0 !important;
 }
-table {
+
+.col-12.mb-2 > .content table {
   table-layout: auto;
 }
-.inline-table {
+
+.col-12.mb-2 > .content .inline-table {
   display: inline-table;
 }
-.vac {
+
+.col-12.mb-2 > .content .vac {
   background-color: #1657b8;
   color: white !important;
   display: block;
   width: 100%;
   padding: 0.1rem 0.2rem;
   font-size: 1.2rem;
-  width: 100%;
   margin-left: auto;
   margin-right: auto;
   cursor: pointer;
@@ -30,10 +35,12 @@ table {
   padding-left: 2rem;
   margin-top: 1rem;
 }
-.vac > span {
+
+.col-12.mb-2 > .content .vac > span {
   color: white !important;
 }
-.dep_trigger {
+
+.col-12.mb-2 > .content .dep_trigger {
   border: 1px solid black;
   padding: 0.3rem 1rem;
   display: flex;
@@ -48,11 +55,12 @@ table {
   margin: 0;
   margin-top: 1rem;
 }
-.hidden {
+
+.col-12.mb-2 > .content .hidden {
   display: none;
 }
-.arrow {
-  width: 2rem;
+
+.col-12.mb-2 > .content .arrow {
   width: 0px;
   border-bottom: 0 solid transparent;
   border-left: 0.4rem solid transparent;
@@ -62,31 +70,37 @@ table {
   transform-origin: 50% 50%;
   margin: 0 !important;
 }
-.arrow_container {
+
+.col-12.mb-2 > .content .arrow_container {
   display: flex;
   justify-items: center;
   align-items: center;
 }
-.get_rotated {
+
+.col-12.mb-2 > .content .get_rotated {
   transform: rotateZ(-180deg);
 }
-.data_window {
+
+.col-12.mb-2 > .content .data_window {
   border: 1px solid black;
   width: 60vw;
   height: fit-content;
   margin-top: 1rem;
   padding: 1rem 2rem;
 }
-.title {
+
+.col-12.mb-2 > .content .title {
   font-size: 1.4rem;
   font-weight: 700;
   text-align: left;
 }
-.subtitle {
+
+.col-12.mb-2 > .content .subtitle {
   font-size: 1.2rem;
   font-weight: 600;
 }
-.flex {
+
+.col-12.mb-2 > .content .flex {
   display: flex !important;
   gap: 1rem !important;
 }
