@@ -56,7 +56,7 @@
   margin-top: 1rem;
 }
 
-.col-12.mb-2 > .content .hidden {
+.hidden {
   display: none;
 }
 

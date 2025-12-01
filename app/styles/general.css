@@ -1,0 +1,14 @@
+.hidden {
+  display: none;
+}
+a {
+  list-style: none;
+  color: white;
+  text-decoration: none;
+}
+.text-gray {
+  color: rgb(59, 59, 59);
+}
+.text-purple {
+  color: rgb(152, 96, 255) !important;
+}
