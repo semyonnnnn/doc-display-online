@@ -22,7 +22,7 @@ const alphaChanel = ".9";
 const colorShadows = [
   `rgba(155, 246, 255, ${alphaChanel})`, // 1
   `rgba(202, 255, 191, ${alphaChanel})`, // 2
-  `rgba(255, 214, 165, ${alphaChanel})`, // 3
+  `rgba(255, 214, 182, ${alphaChanel})`, // 3
   `rgba(255, 214, 165, ${alphaChanel})`, // 4
   `rgba(255, 173, 173, ${alphaChanel})`, // 5
   `rgba(114, 221, 247, ${alphaChanel})`, // 6
@@ -84,9 +84,26 @@ export const Timeline = {
       this.monthLabels.appendChild(wrapper);
     }
 
+    // collect table row ids once
+    const tableIds = new Set(
+      Array.from(document.querySelectorAll("#surveyTable tbody tr")).map(
+        (r) => r.id
+      )
+    );
+
+    const tableRows = Array.from(
+      document.querySelectorAll("#surveyTable tbody tr")
+    );
+
+    const hiddenRows = tableRows.filter((tableRow) =>
+      tableRow.classList.contains("hidden")
+    );
+
+    const hiddenIds = hiddenRows.map((r) => r.id);
+
     // render timeline bars for periods that intersect this page
     data.forEach((item, itemIndex) => {
-      item.periods.forEach((period, periodIndex) => {
+      item.periods.forEach((period) => {
         const [startDay, startMonthGen] = period.start.split(" ");
         const [endDay, endMonthGen] = period.end.split(" ");
 
@@ -100,9 +117,6 @@ export const Timeline = {
         // skip bars that are completely outside current page
         if (endMonth < startMonthIndex || startMonth >= endMonthIndex) return;
 
-        // calculate position relative to visible months
-        const visibleStartMonth = Math.max(startMonth, startMonthIndex);
-        const visibleEndMonth = Math.min(endMonth, endMonthIndex - 1);
         const durationDays = this.calculateDuration(
           +startDay,
           startMonth,
@@ -120,29 +134,38 @@ export const Timeline = {
 
         // Create link wrapper
         const link = document.createElement("a");
-        link.href = "#" + (links[itemIndex] || "");
+        const linkId = links[itemIndex] || "";
+        link.href = "#" + linkId;
+        link.dataset.linkId = linkId;
         link.classList.add("timeline-link");
         link.style.left = pos.left;
         link.style.width = pos.width;
         link.style.top = `calc(${itemIndex + 1} * 3rem)`;
 
-        // Create colored bar
+        if (hiddenIds.includes(linkId)) {
+          link.classList.add("hidden");
+        }
+
+        // Create colored bar (use your color-* CSS class)
         const bar = document.createElement("div");
-        bar.classList.add("survey-bar", `color-${itemIndex + 1}`);
+        bar.classList.add("survey-bar", `color-${(itemIndex % 7) + 1}`);
         bar.dataset.name = item.name;
 
-        // Create text div
-
-        const colorShadow = colorShadows[itemIndex];
-
+        // Create text div (kept intact)
+        const colorShadow = colorShadows[itemIndex % colorShadows.length];
         const textDiv = document.createElement("div");
-        textDiv.classList.add("survey-text");
+        textDiv.classList.add("survey-text"); // your original class
         textDiv.textContent = item.name;
         textDiv.style.boxShadow = `0px 3px 5px -2px ${colorShadow}`;
 
         // Append bar and text to link
         link.appendChild(bar);
         link.appendChild(textDiv);
+
+        // hide immediately if no matching table row
+        if (!tableIds.has(linkId)) {
+          link.classList.add("hidden");
+        }
 
         // Append link to timeline
         this.timeline.appendChild(link);

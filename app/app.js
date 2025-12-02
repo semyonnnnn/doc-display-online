@@ -57,14 +57,13 @@ setTimeout(() => {
   }
   Timeline.monthLabels = monthLabels;
 
-  Timeline.init();
-
   // CityHider elements
   const table = interviewers_container.querySelector("#surveyTable");
   const select = interviewers_container.querySelector("#cityHider");
   if (table && select) {
     CityHider.table = table;
     CityHider.select = select;
+    Timeline.init();
     CityHider.init();
   }
 }, 0);
