@@ -76,7 +76,7 @@
 /* Timeline grid container */
 .timeline-grid {
   position: relative;
-  height: 20rem;
+  height: 30rem;
   margin-bottom: 15px;
   background-color: #fff;
 }
@@ -101,6 +101,9 @@
   font-size: 0.8rem;
   color: #333;
   white-space: nowrap;
+  padding: 0.3rem 0.4rem;
+  border-radius: 0.3rem;
+  width: fit-content !important;
 }
 
 /* Main month separators (thicker lines) */
@@ -209,7 +212,7 @@
   background-color: #caffbf;
 } /* Доходы / Многодетные */
 .color-3 {
-  background-color: #fdffb6;
+  background-color: #ffe2b6;
 } /* Комплексное наблюдение */
 .color-4 {
   background-color: #ffd6a5;
@@ -222,7 +225,7 @@
 } /* ИТ */
 .color-7 {
   background-color: #c2a9ef;
-} /* Сельхоз */ /* ПОЗИЦИОНИРОВАНИЕ НА ОСНОВЕ 36-КОЛОНОЧНОЙ СЕТКИ */ /* ----------------------------------------------- */ /* 1. Доходы населения (16 янв – 5 фев = 21 день) */ /* (16/30)*3 = 1.6 колонки; (21/30)*3 = 2.1 колонки */
+}
 .color_select-1 {
   background-color: #c8f7ff; /* Доходы */
 }

@@ -17,6 +17,18 @@ const monthMap = {
   декабря: "Декабрь",
 };
 
+const alphaChanel = ".9";
+
+const colorShadows = [
+  `rgba(155, 246, 255, ${alphaChanel})`, // 1
+  `rgba(202, 255, 191, ${alphaChanel})`, // 2
+  `rgba(255, 214, 165, ${alphaChanel})`, // 3
+  `rgba(255, 214, 165, ${alphaChanel})`, // 4
+  `rgba(255, 173, 173, ${alphaChanel})`, // 5
+  `rgba(114, 221, 247, ${alphaChanel})`, // 6
+  `rgba(194, 169, 239, ${alphaChanel})`, // 7
+];
+
 export const Timeline = {
   timeline: document.querySelector(".timeline-grid"),
   monthLabels: document.querySelector(".month-labels"),
@@ -120,9 +132,13 @@ export const Timeline = {
         bar.dataset.name = item.name;
 
         // Create text div
+
+        const colorShadow = colorShadows[itemIndex];
+
         const textDiv = document.createElement("div");
         textDiv.classList.add("survey-text");
         textDiv.textContent = item.name;
+        textDiv.style.boxShadow = `0px 3px 5px -2px ${colorShadow}`;
 
         // Append bar and text to link
         link.appendChild(bar);

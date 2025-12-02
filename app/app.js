@@ -4,8 +4,6 @@ import { Interactivity } from "/app/Interactivity.js";
 import { Timeline } from "./Timeline.js";
 import { CityHider } from "./CityHider.js";
 
-import template from "../template.html";
-
 const content = document.querySelectorAll(".content")[1];
 const outer_tables = content.querySelectorAll(":scope > table");
 
@@ -14,6 +12,7 @@ data_window.classList.add("data_window");
 data_window.classList.add("hidden");
 
 // PROD ONLY
+import template from "../template.html";
 import vacancies_styles from "./styles/vacancies.css";
 import interviewers_styles from "./styles/interviewers.css";
 import general_styles from "./styles/general.css";
