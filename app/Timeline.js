@@ -162,11 +162,6 @@ export const Timeline = {
         link.appendChild(bar);
         link.appendChild(textDiv);
 
-        // hide immediately if no matching table row
-        if (!tableIds.has(linkId)) {
-          link.classList.add("hidden");
-        }
-
         // Append link to timeline
         this.timeline.appendChild(link);
       });
