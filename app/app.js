@@ -21,36 +21,52 @@ const styleTag = document.createElement("style");
 styleTag.textContent = vacancies_styles + interviewers_styles + general_styles;
 
 document.head.appendChild(styleTag);
-
 //PROD ONLY
 
 ApplyStyles.init(outer_tables, content);
 Interactivity.init(content);
 DataExtractor.init(data_window);
 
-document.addEventListener("DOMContentLoaded", () => {
-  Timeline.init();
-  CityHider.init();
-});
-
 setTimeout(() => {
+  // hide sidebar & expand main
   document.querySelector(
     ".col-lg-4.mt-2.mt-lg-0.order-2.order-lg-1"
   ).style.display = "none";
   const main = document.querySelectorAll(".col-lg-8.order-1.order-lg-1")[0];
-  main.classList.remove("col-lg-8");
-  main.classList.add("col-lg-12");
+  main.classList.replace("col-lg-8", "col-lg-12");
 
   content.parentElement.appendChild(data_window);
 
-  ///////////////////////////////////////////////
-
-  //PROD ONLY
+  // Insert template
   const interviewers_container = document.createElement("div");
   interviewers_container.innerHTML = template;
-
   content.parentElement.parentElement.appendChild(interviewers_container);
-  //PROD ONLY
+
+  // Now elements exist, safe to init
+  Timeline.timeline = interviewers_container.querySelector(".timeline-grid");
+
+  // Create month labels container if missing
+  let monthLabels = interviewers_container.querySelector(".month-labels");
+  if (!monthLabels) {
+    monthLabels = document.createElement("div");
+    monthLabels.classList.add("month-labels");
+    Timeline.timeline.parentElement.insertBefore(
+      monthLabels,
+      Timeline.timeline
+    );
+  }
+  Timeline.monthLabels = monthLabels;
+
+  Timeline.init();
+
+  // CityHider elements
+  const table = interviewers_container.querySelector("#surveyTable");
+  const select = interviewers_container.querySelector("#cityHider");
+  if (table && select) {
+    CityHider.table = table;
+    CityHider.select = select;
+    CityHider.init();
+  }
 }, 0);
 
 // https://66.rosstat.gov.ru/folder/270448
