@@ -1,18 +1,13 @@
-// import * as mammoth from "mammoth";
+import * as mammoth from "mammoth";
 
 export const DataExtractor = {
-  init: (outer_tables, data_window) => {
-    const links = Array.from(outer_tables)
-      .map((outer_table) => outer_table.querySelectorAll("a"))
-      .map((table) => Array.from(table))
-      .flat();
-    console.log(links);
+  init: (data_window) => {
+    const links = document.querySelectorAll(".vac");
+    // console.log(links);
 
     links.forEach((link) => {
       link.addEventListener("click", async (e) => {
         e.preventDefault();
-        table.classList.remove("inline-table");
-        table.classList.add("flex");
         const url = e.currentTarget.href;
         try {
           const response = await fetch(url);
